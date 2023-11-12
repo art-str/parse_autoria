@@ -8,8 +8,10 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
-import datetime
-import time
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 def rename_file(csv_name):
     new_file = f'{csv_name}.csv'
@@ -72,9 +74,9 @@ def send_massege(csv_name):
     print('Попытка выполнить операцию')
     server = 'smtp.gmail.com'
     port = 587
-    user_email = 'artstr3001@gmail.com'
-    password = 'vglt wqjk sxpc allj'
-    recipient_email = 'strelnikov-a@ukr.net'
+    user_email = os.getenv('USER_EMAIL')
+    password = os.getenv('PASSWORD')
+    recipient_email = os.getenv('RECEPIENT_EMAIL')
     msg = MIMEMultipart()
     msg['From'] = user_email
     msg['To'] = recipient_email
@@ -132,6 +134,7 @@ def main():
 
     #check_files(csv_name)
     send_massege(csv_name)
+
 
 if __name__ == '__main__':
     main()
